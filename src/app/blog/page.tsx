@@ -65,58 +65,44 @@ export default function BlogDirectoryPage() {
   return (
     <div className="relative w-full min-h-screen bg-light-bg text-text-gray pb-24 overflow-hidden">
 
-      {/* ---------------- HERO INTRO SECTION ---------------- */}
-      <section className="relative bg-primary text-white pt-32 pb-16 px-6 overflow-hidden">
-        {/* Background glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-accent/10 rounded-full blur-[100px] pointer-events-none" />
+      {/* ---------------- BLOG HEADER EDITORIAL ---------------- */}
+      <div className="pt-32 pb-12 px-6 border-b border-primary/10">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-5"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-primary" />
+            <span className="text-xs font-semibold text-primary tracking-wider uppercase font-jakarta">
+              Editorial WeSix
+            </span>
+          </motion.div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 mb-6 backdrop-blur-sm"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
-              <span className="text-xs font-semibold text-white tracking-wider uppercase font-jakarta">
-                Editorial WeSix
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-jakarta text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white mb-4"
-            >
-              Conteúdo para quem
-              <br />
-              <span className="text-accent">empreende de verdade.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-white/80 font-inter text-lg md:text-xl leading-relaxed font-medium mb-3"
-            >
-              Gestão, finanças e crescimento para o pequeno empresário brasileiro.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-white/60 font-inter text-sm leading-relaxed max-w-xl"
-            >
-              Publicações semanais sobre controle financeiro, organização do negócio e decisões que fazem diferença no dia a dia.
-            </motion.p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <motion.h1
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="font-jakarta text-4xl md:text-5xl font-extrabold text-text-navy tracking-tight leading-tight mb-3"
+              >
+                Conteúdo para quem<br />
+                <span className="text-primary">empreende de verdade.</span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-text-gray font-inter text-base leading-relaxed max-w-xl"
+              >
+                Gestão, finanças e crescimento para o pequeno empresário brasileiro. Publicações semanais sobre controle financeiro e decisões que fazem diferença no dia a dia.
+              </motion.p>
+            </div>
           </div>
-
         </div>
-      </section>
+      </div>
 
       {/* Background spotlights for content area */}
       <div className="absolute top-[60%] left-1/4 w-[600px] h-[600px] bg-primary/3 rounded-full blur-[120px] pointer-events-none" />
@@ -125,7 +111,7 @@ export default function BlogDirectoryPage() {
       <div className="max-w-7xl mx-auto px-6 relative z-10 pt-16">
 
         {/* ---------------- FEATURED POST AREA (Destaque) ---------------- */}
-        {featuredPost && !searchQuery && (selectedCategory === "all" || featuredPost.category.slug === selectedCategory) && (
+        {featuredPost && !searchQuery && (
           <div className="mb-24">
             <h2 className="text-xs font-bold text-text-gray uppercase tracking-widest mb-6 font-jakarta">Publicação em Destaque</h2>
             <article className="bg-white border border-primary/5 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0 group shadow-[0_15px_40px_rgba(94,61,255,0.03)]">
