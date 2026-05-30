@@ -161,7 +161,11 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const adminKey = process.env.NEXT_PUBLIC_ADMIN_KEY;
+    // WordPress plugin: read from window.wesixConfig; fallback to Next.js env var
+    const adminKey =
+      (typeof window !== "undefined" && (window as any).wesixConfig?.adminKey) ||
+      process.env.NEXT_PUBLIC_ADMIN_KEY ||
+      "";
     if (adminKey && password === adminKey) {
       setIsAuthenticated(true);
       setAuthError("");

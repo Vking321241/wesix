@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import { getWesixConfig } from "@/lib/wesixConfig";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_ITEMS = [
@@ -17,6 +18,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { logoUrl, siteName } = getWesixConfig();
+  const brandName = siteName || 'WeSix';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,9 +50,13 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <span className="font-jakarta text-2xl font-extrabold tracking-tight text-text-navy transition-all duration-300">
-              WeSix<span className="text-primary group-hover:text-accent transition-all duration-300">.io</span>
-            </span>
+            {logoUrl ? (
+              <img src={logoUrl} alt={brandName} className="h-9 w-auto object-contain" />
+            ) : (
+              <span className="font-jakarta text-2xl font-extrabold tracking-tight text-text-navy transition-all duration-300">
+                {brandName}<span className="text-primary group-hover:text-accent transition-all duration-300">.io</span>
+              </span>
+            )}
           </Link>
 
           {/* Desktop Nav Items */}

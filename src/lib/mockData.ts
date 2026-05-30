@@ -84,65 +84,7 @@ export const MOCK_CATEGORIES: Category[] = [
   { id: "product", name: "Funcionalidades MEI", slug: "product" },
 ];
 
-export const MOCK_POSTS: BlogPost[] = [
-  {
-    id: "1",
-    title: "O erro número um do MEI: Misturar conta física e jurídica",
-    slug: "erro-numero-um-mei-misturar-contas",
-    excerpt: "Saiba por que misturar seu saldo do negócio com o do mercado destrói seu lucro e como a WeSix resolve isso de forma simples.",
-    coverImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=1200",
-    publishedAt: "2026-05-20",
-    readTime: "5 min de leitura",
-    category: MOCK_CATEGORIES[1], // Separação de Contas
-    author: MOCK_AUTHORS.wellington,
-    featured: true,
-    tags: ["MEI", "Saldos Bancários", "Organização"],
-    content: `
-      <p class="lead">Você trabalha, vende, entrega… Mas quando vai olhar o caixa, parece que o dinheiro sumiu. O problema quase sempre está na falta de separação entre o seu bolso e a sua empresa.</p>
-      
-      <h2>Por que a separação é vital?</h2>
-      <p>Quando você paga o almoço com a conta do negócio e a conta de luz da empresa com o dinheiro pessoal, você perde a noção de lucro real. Você acaba achando que tem dinheiro disponível quando na verdade é capital de giro ou imposto acumulado.</p>
-      
-      <blockquote>
-        "O WeSix foi feito para pequenos empreendedores e MEIs. Com um painel simples e sem planilhas, ele divide suas finanças e mostra seu lucro real por venda."
-      </blockquote>
-
-      <h2>O Método WeSix em 3 etapas</h2>
-      <p>Nosso sistema organiza seu negócio sem precisar ser especialista:</p>
-      <ul>
-        <li><strong>Registre tudo:</strong> Lance Pix, cartão, dinheiro ou maquininha em segundos.</li>
-        <li><strong>Filtre o fluxo:</strong> O WeSix separa o que é pessoal e o que é da sua empresa.</li>
-        <li><strong>Analise seu lucro:</strong> Descubra a margem exata e pare de decidir no achismo.</li>
-      </ul>
-    `,
-  },
-  {
-    id: "2",
-    title: "Guia definitivo de precificação para prestadores de serviços",
-    slug: "guia-precificacao-prestadores-servicos",
-    excerpt: "Calcular o preço do seu serviço vai muito além de chutar um valor. Veja como a WeSix calcula margens reais por serviço ou pedido.",
-    coverImage: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=800",
-    publishedAt: "2026-05-24",
-    readTime: "4 min de leitura",
-    category: MOCK_CATEGORIES[2], // Precificação e Lucro
-    author: MOCK_AUTHORS.sofia,
-    featured: false,
-    tags: ["Precificação", "Serviços", "Margem"],
-    content: `
-      <p>Muitos prestadores de serviço e autônomos cobram baseados puramente no preço do concorrente, gerando prejuízos silenciosos.</p>
-
-      <h2>O cálculo da margem real</h2>
-      <p>Precificar exige analisar seus custos fixos, variáveis, impostos e tempo investido. O WeSix facilita isso por meio do recurso de <strong>Precificação Completa</strong>.</p>
-
-      <h2>Como o WeSix ajuda a precificar</h2>
-      <ol>
-        <li><strong>Calculadora integrada:</strong> Insira seus custos diretos e indiretos e o app sugere o preço ideal de venda.</li>
-        <li><strong>Visão de lucro real:</strong> Veja a margem de contribuição exata por atendimento realizado.</li>
-        <li><strong>Pedidos e agendamentos:</strong> Projete o faturamento do seu dia antes mesmo de começar a trabalhar.</li>
-      </ol>
-    `,
-  },
-];
+export const MOCK_POSTS: BlogPost[] = [];
 
 export const BENEFIT_CARDS: BenefitCard[] = [
   {

@@ -3,8 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Shield, Sparkles, CheckCircle2 } from "lucide-react";
+import { getWesixConfig } from "@/lib/wesixConfig";
 
 export default function Footer() {
+  const { logoUrl, siteName } = getWesixConfig();
+  const brandName = siteName || 'WeSix';
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [error, setError] = useState("");
@@ -38,9 +41,13 @@ export default function Footer() {
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
               <Link href="/" className="flex items-center space-x-2 group mb-6">
-                <span className="font-jakarta text-2xl font-extrabold tracking-tight text-white">
-                  WeSix<span className="text-accent group-hover:text-white transition-colors duration-300">.io</span>
-                </span>
+                {logoUrl ? (
+                  <img src={logoUrl} alt={brandName} className="h-9 w-auto object-contain brightness-0 invert" />
+                ) : (
+                  <span className="font-jakarta text-2xl font-extrabold tracking-tight text-white">
+                    {brandName}<span className="text-accent group-hover:text-white transition-colors duration-300">.io</span>
+                  </span>
+                )}
               </Link>
               <p className="text-white/85 font-inter text-sm max-w-sm leading-relaxed font-semibold">
                 Seu parceiro para despesas e organização. Unindo controle financeiro estratégico, sandboxes dinâmicas e relatórios em tempo real.
@@ -108,7 +115,7 @@ export default function Footer() {
         {/* Footer Bottom Metadata & Certifications */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-white/10">
           <div className="flex flex-wrap items-center gap-6 text-xs text-white/70 font-inter">
-            <span>© {new Date().getFullYear()} WeSix Inc. Todos os direitos reservados.</span>
+            <span>© {new Date().getFullYear()} {brandName}. Todos os direitos reservados.</span>
             <span className="hidden sm:inline border-r border-white/20 h-4" />
             <span className="flex items-center gap-1.5 text-white">
               <Shield className="w-3.5 h-3.5 text-accent" />
