@@ -25,10 +25,10 @@ add_shortcode( 'wesix_admin', 'wesix_admin_shortcode' );
 
 function wesix_get_js_config(): array {
     return [
-        'adminKey'         => get_option( 'wesix_admin_password', '' ),
-        'logoUrl'          => get_theme_mod( 'wesix_logo_url', '' ),
-        'siteName'         => get_theme_mod( 'wesix_site_name', 'WeSix' ),
-        'coverPlaceholder' => get_theme_mod( 'wesix_cover_placeholder', '' ),
+        'adminKey'       => get_option( 'wesix_admin_password', '' ),
+        'logoUrl'        => get_theme_mod( 'wesix_logo_url', '' ),
+        'siteName'       => get_theme_mod( 'wesix_site_name', 'WeSix' ),
+        'founderPhoto'   => get_theme_mod( 'wesix_founder_photo', '' ),
     ];
 }
 

@@ -19,7 +19,7 @@ function wesix_customize_register( WP_Customize_Manager $wp_customize ): void {
         'priority'    => 10,
     ] );
 
-    // Logo (imagem)
+    // Logo
     $wp_customize->add_setting( 'wesix_logo_url', [
         'default'           => '',
         'transport'         => 'refresh',
@@ -27,7 +27,7 @@ function wesix_customize_register( WP_Customize_Manager $wp_customize ): void {
     ] );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'wesix_logo_url', [
         'label'       => 'Logo do Site',
-        'description' => 'Substitui o texto "WeSix.io" na barra de navegação. Recomendado: PNG/SVG fundo transparente, altura mínima 40px.',
+        'description' => 'Substitui o texto "WeSix.io" na barra de navegação e rodapé. Recomendado: PNG/SVG fundo transparente, altura mínima 40px.',
         'section'     => 'wesix_identity',
     ] ) );
 
@@ -39,28 +39,28 @@ function wesix_customize_register( WP_Customize_Manager $wp_customize ): void {
     ] );
     $wp_customize->add_control( 'wesix_site_name', [
         'label'       => 'Nome da Marca',
-        'description' => 'Aparece no rodapé e em outros textos de branding quando não há logo definida.',
+        'description' => 'Texto de branding exibido quando não há logo definida.',
         'section'     => 'wesix_identity',
         'type'        => 'text',
     ] );
 
-    // ─── Section: Imagens ─────────────────────────────────────────────────
-    $wp_customize->add_section( 'wesix_images', [
-        'title'       => 'Imagens do Site',
-        'description' => 'Substitua as imagens padrão exibidas no blog.',
+    // ─── Section: Página Nossa História ───────────────────────────────────
+    $wp_customize->add_section( 'wesix_about', [
+        'title'       => 'Página "Nossa História"',
+        'description' => 'Imagens exibidas na página Sobre / Nossa História.',
         'panel'       => 'wesix_panel',
         'priority'    => 20,
     ] );
 
-    // Imagem de capa padrão dos posts
-    $wp_customize->add_setting( 'wesix_cover_placeholder', [
+    // Foto do fundador
+    $wp_customize->add_setting( 'wesix_founder_photo', [
         'default'           => '',
         'transport'         => 'refresh',
         'sanitize_callback' => 'esc_url_raw',
     ] );
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'wesix_cover_placeholder', [
-        'label'       => 'Imagem Padrão de Capa',
-        'description' => 'Exibida quando um post não tem imagem de capa definida. Proporção recomendada: 16:9.',
-        'section'     => 'wesix_images',
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'wesix_founder_photo', [
+        'label'       => 'Foto do Fundador',
+        'description' => 'Aparece no card de perfil na página "Nossa História". Proporção recomendada: 3:4 (retrato).',
+        'section'     => 'wesix_about',
     ] ) );
 }

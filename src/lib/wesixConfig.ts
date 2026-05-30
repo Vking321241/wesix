@@ -2,7 +2,7 @@ export interface WesixConfig {
   adminKey?: string;
   logoUrl?: string;
   siteName?: string;
-  coverPlaceholder?: string;
+  founderPhoto?: string;
 }
 
 declare global {

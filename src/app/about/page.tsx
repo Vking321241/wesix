@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Heart, Calendar, Compass, ShieldCheck } from "lucide-react";
+import { getWesixConfig } from "@/lib/wesixConfig";
 
 export default function AboutPage() {
+  const { founderPhoto, siteName } = getWesixConfig();
+  const brandName = siteName || 'WeSix';
   const TIMELINE_EVENTS = [
     {
       year: "2006",
@@ -120,15 +123,30 @@ export default function AboutPage() {
           
           {/* Left Column Profile Card */}
           <div className="lg:col-span-4 space-y-8 lg:sticky lg:top-28">
-            <div className="relative border border-primary/10 rounded-3xl overflow-hidden aspect-[3/4] w-full max-w-sm bg-gradient-to-tr from-primary/15 via-[#FAF9FF] to-accent/15 flex flex-col justify-end p-8 shadow-md">
-              <div className="absolute top-8 left-8 w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center text-3xl font-black font-jakarta shadow-lg">
-                W
-              </div>
-              
-              <span className="text-xs font-bold tracking-widest text-primary uppercase mb-1 font-jakarta">👤 Perfil do Fundador</span>
-              <h4 className="font-jakarta text-3xl font-extrabold text-text-navy leading-none mb-1">Wellington</h4>
-              <span className="text-sm text-primary font-jakarta font-bold block mb-1">Fundador do WeSix</span>
-              <span className="text-xs text-text-gray font-inter font-bold">@eusouowellington</span>
+            <div className="relative border border-primary/10 rounded-3xl overflow-hidden aspect-[3/4] w-full max-w-sm shadow-md">
+              {founderPhoto ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={founderPhoto} alt="Foto do Fundador" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <span className="text-xs font-bold tracking-widest text-white/80 uppercase mb-1 font-jakarta block">👤 Perfil do Fundador</span>
+                    <h4 className="font-jakarta text-3xl font-extrabold text-white leading-none mb-1">Wellington</h4>
+                    <span className="text-sm text-accent font-jakarta font-bold block mb-1">Fundador do {brandName}</span>
+                    <span className="text-xs text-white/70 font-inter font-bold">@eusouowellington</span>
+                  </div>
+                </>
+              ) : (
+                <div className="w-full h-full bg-gradient-to-tr from-primary/15 via-[#FAF9FF] to-accent/15 flex flex-col justify-end p-8">
+                  <div className="absolute top-8 left-8 w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center text-3xl font-black font-jakarta shadow-lg">
+                    W
+                  </div>
+                  <span className="text-xs font-bold tracking-widest text-primary uppercase mb-1 font-jakarta">👤 Perfil do Fundador</span>
+                  <h4 className="font-jakarta text-3xl font-extrabold text-text-navy leading-none mb-1">Wellington</h4>
+                  <span className="text-sm text-primary font-jakarta font-bold block mb-1">Fundador do {brandName}</span>
+                  <span className="text-xs text-text-gray font-inter font-bold">@eusouowellington</span>
+                </div>
+              )}
             </div>
             
             <div className="bg-white border border-primary/5 rounded-2xl p-6 shadow-sm space-y-4">
