@@ -300,7 +300,7 @@ export default function BlogHomePage() {
                     key={post.id}
                     className="bg-white border border-primary/5 rounded-3xl overflow-hidden flex flex-col justify-between group shadow-sm hover:shadow-md transition-all duration-300"
                   >
-                    <Link href={`/blog/${post.slug}`} className="block overflow-hidden aspect-[16/10]">
+                    <Link href={`/blog/${post.slug}`} className="block overflow-hidden h-48">
                       <img
                         src={post.coverImage}
                         alt={post.title}
