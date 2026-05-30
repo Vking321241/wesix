@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #5E3DFF;
+  --color-primary-dark: #482AD4;
+  --color-accent: #FF6E1E;
+  --color-accent-dark: #E05A14;
+  --color-dark-bg: #5E3DFF;
+  --color-dark-card: #FFFFFF;
+  --color-light-bg: #FAF9FF;
+  --color-light-card: #FFFFFF;
+  --color-text-navy: #110B33;
+  --color-text-gray: #555268;
+  --color-border-light: rgba(94, 61, 255, 0.08);
+  --color-border-dark: rgba(255, 255, 255, 0.15);
+
+  --font-jakarta: var(--font-jakarta);
+  --font-inter: var(--font-inter);
+
+  --animate-float-slow: float-slow 8s ease-in-out infinite;
+  --animate-float-medium: float-medium 6s ease-in-out infinite;
+  --animate-float-fast: float-fast 4s ease-in-out infinite;
+  --animate-glow: glow 12s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(1.5deg); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.35; filter: blur(80px); }
+  50% { opacity: 0.6; filter: blur(100px); }
+}
+
+/* Custom Base Configurations */
+:root {
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  scroll-behavior: auto; /* Required for Lenis smooth scroll */
+}
+
+/* Lenis Custom Smooth Scrolling Rules */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overflow: clip;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Scrollbar styling matching the brand colors */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF9FF;
+}
+::-webkit-scrollbar-thumb {
+  background: #EAE8FC;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5E3DFF;
+}
+
+/* Light Mode Base Body Style (Aligning with reference) */
+body {
+  font-family: var(--font-inter);
+  background-color: #FAF9FF;
+  color: #555268;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism Classes for white layers */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(94, 61, 255, 0.08);
+}
+
+.glass-panel-dark {
+  background: rgba(17, 11, 51, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Custom visual meshes */
+.gradient-mesh {
+  background: radial-gradient(circle at 10% 20%, rgba(94, 61, 255, 0.04) 0%, transparent 50%),
+              radial-gradient(circle at 90% 80%, rgba(255, 110, 30, 0.03) 0%, transparent 50%);
+}
+
+.gradient-glow-primary {
+  background: radial-gradient(circle, rgba(94, 61, 255, 0.06) 0%, transparent 70%);
+}
+
+.gradient-glow-accent {
+  background: radial-gradient(circle, rgba(255, 110, 30, 0.04) 0%, transparent 70%);
+}
+
+/* Rich Typographical Presets */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-jakarta);
+  color: inherit;
+  letter-spacing: -0.02em;
+}
+
+/* Custom premium hover rules */
+.premium-border-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.premium-border-hover:hover {
+  border-color: rgba(94, 61, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(94, 61, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+/* Animated Moving Gradient Utilities */
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-moving-gradient {
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: gradient-move 5s ease infinite !important;
+}
+
+/* WYSIWYG Editor Placeholder styling */
+.editor-wysiwyg[contenteditable]:empty::before {
+  content: attr(data-placeholder);
+  color: #9A98AF;
+  font-style: italic;
+  font-weight: 500;
+  cursor: text;
+}
