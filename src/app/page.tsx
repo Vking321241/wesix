@@ -153,16 +153,25 @@ export default function BlogHomePage() {
             className="font-jakarta text-4xl md:text-5xl font-extrabold text-text-navy tracking-tight leading-tight mb-3"
           >
             Conteúdo para quem<br />
-            <span className="text-primary">empreende de verdade.</span>
+            <span className="text-primary">empreende de verdade</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-text-navy font-jakarta text-lg font-semibold mb-2 max-w-xl"
+          >
+            Gestão, finanças e crescimento para o pequeno empresário brasileiro
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="text-text-gray font-inter text-base leading-relaxed max-w-xl"
           >
-            Gestão, finanças e crescimento para o pequeno empresário brasileiro. Publicações semanais sobre controle financeiro e decisões que fazem diferença no dia a dia.
+            Publicações semanais sobre controle financeiro, organização do negócio e decisões que fazem diferença no dia a dia.
           </motion.p>
         </div>
       </section>
