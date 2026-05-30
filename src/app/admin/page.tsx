@@ -38,13 +38,11 @@ export default function AdminPage() {
 
   // Form Fields
   const [title, setTitle] = useState("");
-  const [excerpt, setExcerpt] = useState("");
+
   const [content, setContent] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [selectedCategorySlug, setSelectedCategorySlug] = useState("strategy");
   const [selectedAuthorId, setSelectedAuthorId] = useState("wellington");
-  const [publishedAt, setPublishedAt] = useState("");
-  const [readTime, setReadTime] = useState("");
   const [tags, setTags] = useState("");
   const [featured, setFeatured] = useState(false);
   const [formError, setFormError] = useState("");
@@ -315,11 +313,11 @@ export default function AdminPage() {
       id: "preview-temp",
       title: title || "Rascunho de Artigo",
       slug: generatedSlug || "preview-temp",
-      excerpt: excerpt || "Resumo temporário...",
+      excerpt: autoExcerpt(finalContent || ""),
       content: finalContent || "Corpo do artigo...",
       coverImage: coverImage || "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=1200",
-      publishedAt: publishedAt || new Date().toISOString().split('T')[0],
-      readTime: readTime || "5 min de leitura",
+      publishedAt: new Date().toISOString().split('T')[0],
+      readTime: autoReadTime(finalContent || ""),
       category: categoryObj,
       author: authorObj,
       featured: featured,
@@ -330,6 +328,18 @@ export default function AdminPage() {
       localStorage.setItem("wesix_preview_post", JSON.stringify(tempPost));
       window.open("/blog/preview", "_blank");
     }
+  };
+
+  const autoExcerpt = (html: string) => {
+    const plain = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    return plain.length > 160 ? plain.substring(0, 160).trimEnd() + '...' : plain || 'Sem resumo.';
+  };
+
+  const autoReadTime = (html: string) => {
+    const plain = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const words = plain.split(/\s+/).filter(Boolean).length;
+    const mins = Math.max(1, Math.round(words / 200));
+    return `${mins} min de leitura`;
   };
 
   const execEditorCommand = (command: string, value: string = "") => {
@@ -347,13 +357,10 @@ export default function AdminPage() {
 
   const resetForm = () => {
     setTitle("");
-    setExcerpt("");
     setContent("");
     setCoverImage("");
     setSelectedCategorySlug("strategy");
     setSelectedAuthorId("wellington");
-    setPublishedAt(new Date().toISOString().split('T')[0]);
-    setReadTime("5 min de leitura");
     setTags("MEI, Finanças");
     setFeatured(false);
     setFormError("");
@@ -374,7 +381,7 @@ export default function AdminPage() {
   const handleCreatePost = (e: React.FormEvent) => {
     e.preventDefault();
     const finalContent = editorRef.current?.innerHTML || "";
-    if (!title || !excerpt || !finalContent || finalContent === "<br>" || !coverImage) {
+    if (!title || !finalContent || finalContent === "<br>" || !coverImage) {
       setFormError("Por favor, preencha todos os campos obrigatórios (*).");
       return;
     }
@@ -399,11 +406,11 @@ export default function AdminPage() {
       id: "custom-" + Date.now(),
       title,
       slug: generatedSlug,
-      excerpt,
+      excerpt: autoExcerpt(finalContent),
       content: finalContent,
       coverImage,
-      publishedAt,
-      readTime,
+      publishedAt: new Date().toISOString().split("T")[0],
+      readTime: autoReadTime(finalContent),
       category: categoryObj,
       author: authorObj,
       featured,
@@ -425,15 +432,12 @@ export default function AdminPage() {
   const handleEditClick = (post: BlogPost) => {
     setEditingPost(post);
     setTitle(post.title);
-    setExcerpt(post.excerpt);
     setContent(post.content);
     setCoverImage(post.coverImage);
     setSelectedCategorySlug(post.category.slug);
     // Find author key
     const authorKey = Object.keys(authors).find(k => authors[k].name === post.author.name) || "wellington";
     setSelectedAuthorId(authorKey);
-    setPublishedAt(post.publishedAt);
-    setReadTime(post.readTime);
     setTags(post.tags.join(", "));
     setFeatured(post.featured);
     setFormError("");
@@ -445,7 +449,7 @@ export default function AdminPage() {
     if (!editingPost) return;
 
     const finalContent = editorRef.current?.innerHTML || "";
-    if (!title || !excerpt || !finalContent || finalContent === "<br>" || !coverImage) {
+    if (!title || !finalContent || finalContent === "<br>" || !coverImage) {
       setFormError("Por favor, preencha todos os campos obrigatórios (*).");
       return;
     }
@@ -466,11 +470,10 @@ export default function AdminPage() {
           ...p,
           title,
           slug: generatedSlug,
-          excerpt,
+          excerpt: autoExcerpt(finalContent),
           content: finalContent,
           coverImage,
-          publishedAt,
-          readTime,
+          readTime: autoReadTime(finalContent),
           category: categoryObj,
           author: authorObj,
           featured,
@@ -1247,16 +1250,6 @@ export const MOCK_POSTS: BlogPost[] = ${postsString};
                   <span className="text-[9px] text-text-gray italic font-semibold mt-1 block">O slug do post será gerado automaticamente para a URL (ex: `{title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`).</span>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-[#9A98AF] uppercase tracking-wider block">Resumo/Descrição Rápida (Excerpt) *</label>
-                  <textarea 
-                    value={excerpt}
-                    onChange={(e) => setExcerpt(e.target.value)}
-                    placeholder="Insira um pequeno parágrafo chamativo que aparece na listagem do blog..."
-                    rows={2}
-                    className="w-full bg-[#FAF9FF] border border-primary/10 focus:border-primary text-text-navy text-sm font-semibold rounded-xl px-4 py-3.5 focus:outline-none placeholder:text-gray-400 font-medium resize-none"
-                  />
-                </div>
               </div>
 
               {/* Meta information row */}
@@ -1304,29 +1297,6 @@ export const MOCK_POSTS: BlogPost[] = ${postsString};
                 </div>
               </div>
 
-              {/* Data e Tempo de leitura */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-[#9A98AF] uppercase tracking-wider block">Data de Publicação *</label>
-                  <input 
-                    type="date" 
-                    value={publishedAt}
-                    onChange={(e) => setPublishedAt(e.target.value)}
-                    className="w-full bg-[#FAF9FF] border border-primary/10 focus:border-primary text-text-navy text-sm font-semibold rounded-xl px-4 py-3.5 focus:outline-none font-medium"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-[#9A98AF] uppercase tracking-wider block">Tempo de Leitura *</label>
-                  <input 
-                    type="text" 
-                    value={readTime}
-                    onChange={(e) => setReadTime(e.target.value)}
-                    placeholder="Ex: 5 min de leitura"
-                    className="w-full bg-[#FAF9FF] border border-primary/10 focus:border-primary text-text-navy text-sm font-semibold rounded-xl px-4 py-3.5 focus:outline-none font-medium"
-                  />
-                </div>
-              </div>
 
               {/* Cover Image attachment */}
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
