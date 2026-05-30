@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Sparkles, Clock, Eye, ChevronRight } from "lucide-react";
+import { Search, Sparkles, Eye, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { MOCK_POSTS, MOCK_CATEGORIES, BlogPost, Category } from "@/lib/mockData";
 
@@ -204,20 +204,11 @@ export default function BlogHomePage() {
                         {featuredPost.category.name}
                       </span>
                       <span>{featuredPost.publishedAt}</span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1 font-bold text-text-navy">
-                        <Clock className="w-3.5 h-3.5 text-primary shrink-0" />
-                        {featuredPost.readTime}
-                      </span>
                     </div>
-                    
+
                     <h3 className="font-jakarta text-2xl md:text-3xl font-extrabold text-text-navy group-hover:text-primary transition-colors duration-300 leading-snug">
                       <Link href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
                     </h3>
-                    
-                    <p className="text-text-gray font-inter text-sm leading-relaxed font-medium">
-                      {featuredPost.excerpt}
-                    </p>
                   </div>
 
                   <div className="flex items-center justify-between border-t border-primary/10 pt-6 mt-8">
@@ -315,14 +306,11 @@ export default function BlogHomePage() {
                           <span>•</span>
                           <span>{post.publishedAt}</span>
                         </div>
+
                         
                         <h4 className="font-jakarta text-lg font-bold text-text-navy group-hover:text-primary transition-colors duration-300 leading-snug">
                           <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                         </h4>
-                        
-                        <p className="text-text-gray font-inter text-xs leading-relaxed font-semibold line-clamp-3">
-                          {post.excerpt}
-                        </p>
                       </div>
 
                       <div className="flex items-center justify-between border-t border-primary/5 pt-5 mt-6">

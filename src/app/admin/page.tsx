@@ -47,6 +47,8 @@ export default function AdminPage() {
   const [featured, setFeatured] = useState(false);
   const [formError, setFormError] = useState("");
   const editorRef = useRef<HTMLDivElement>(null);
+  const inlineImageRef = useRef<HTMLInputElement>(null);
+  const savedRangeRef = useRef<Range | null>(null);
 
   // Author Management states
   const [authors, setAuthors] = useState<Record<string, Author>>({});
@@ -353,6 +355,41 @@ export default function AdminPage() {
 
   const handleEditorInput = (e: React.FormEvent<HTMLDivElement>) => {
     setContent(e.currentTarget.innerHTML);
+  };
+
+  const saveEditorSelection = () => {
+    if (typeof window !== "undefined") {
+      const sel = window.getSelection();
+      if (sel && sel.rangeCount > 0) {
+        savedRangeRef.current = sel.getRangeAt(0).cloneRange();
+      }
+    }
+  };
+
+  const handleInlineImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl = reader.result as string;
+        if (typeof window !== "undefined" && editorRef.current) {
+          editorRef.current.focus();
+          const sel = window.getSelection();
+          if (savedRangeRef.current && sel) {
+            sel.removeAllRanges();
+            sel.addRange(savedRangeRef.current);
+          }
+          document.execCommand(
+            "insertHTML",
+            false,
+            `<img src="${dataUrl}" style="max-width:100%;height:auto;border-radius:8px;margin:12px 0;display:block;" alt="imagem" />`
+          );
+          setContent(editorRef.current.innerHTML);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+    e.target.value = "";
   };
 
   const resetForm = () => {
@@ -1403,8 +1440,27 @@ export const MOCK_POSTS: BlogPost[] = ${postsString};
 
                     <div className="h-4 w-[1px] bg-primary/10 mx-1" />
 
-                    <button 
-                      type="button" 
+                    <label
+                      className="p-2 rounded-lg hover:bg-primary/5 text-text-gray hover:text-primary transition-all flex items-center gap-1 font-jakarta font-bold text-[10px] uppercase tracking-wider cursor-pointer"
+                      title="Inserir foto(s) no corpo do artigo"
+                      onMouseDown={saveEditorSelection}
+                    >
+                      <ImageIcon className="w-4 h-4 text-primary" />
+                      <span>Foto</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        ref={inlineImageRef}
+                        onChange={handleInlineImageUpload}
+                        className="hidden"
+                      />
+                    </label>
+
+                    <div className="h-4 w-[1px] bg-primary/10 mx-1" />
+
+                    <button
+                      type="button"
                       onClick={() => execEditorCommand("removeFormat")}
                       className="p-1.5 px-3 rounded-lg hover:bg-red-500/5 text-text-gray hover:text-red-500 transition-all font-jakarta font-bold text-[9px] uppercase tracking-wider border border-primary/5 ml-auto"
                       title="Limpar todas as formatações do trecho selecionado"

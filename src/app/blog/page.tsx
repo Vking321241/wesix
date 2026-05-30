@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Sparkles, ChevronRight, Bookmark, Clock, ArrowRight } from "lucide-react";
+import { Search, Sparkles, ChevronRight, Bookmark, ArrowRight } from "lucide-react";
 import { MOCK_POSTS, MOCK_CATEGORIES } from "@/lib/mockData";
 
 export default function BlogDirectoryPage() {
@@ -139,11 +139,6 @@ export default function BlogDirectoryPage() {
                       {featuredPost.category.name}
                     </span>
                     <span>{featuredPost.publishedAt}</span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1 font-semibold text-text-navy">
-                      <Clock className="w-3.5 h-3.5 text-primary" />
-                      {featuredPost.readTime}
-                    </span>
                   </div>
                   
                   <h3 className="font-jakarta text-3xl font-extrabold text-text-navy group-hover:text-primary transition-colors duration-300 mb-4 leading-snug">
@@ -242,15 +237,10 @@ export default function BlogDirectoryPage() {
                   <div>
                     <div className="flex items-center space-x-3 text-xs text-text-gray mb-4 font-inter">
                       <span>{post.publishedAt}</span>
-                      <span>•</span>
-                      <span>{post.readTime}</span>
                     </div>
                     <h4 className="font-jakarta text-xl font-bold text-text-navy group-hover:text-primary transition-colors duration-300 mb-3 leading-snug">
                       <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                     </h4>
-                    <p className="text-text-gray font-inter text-xs leading-relaxed mb-6">
-                      {post.excerpt}
-                    </p>
                   </div>
 
                   <div className="flex items-center justify-between border-t border-primary/10 pt-6">
